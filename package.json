@@ -1,0 +1,15 @@
+{
+  "name": "TPTServer",
+  "version": "0.0.0",
+  "description": "Backend for TPTeam",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies" : {
+    "express": "3.4.4",
+    "mongoose": "3.8.1"
+  },
+  "author": "Allan Lavell",
+  "license": "ISC"
+}

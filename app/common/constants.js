@@ -1,0 +1,1 @@
+exports.databaseURL = process.env.MONGOHQ_URL || 'mongodb://localhost/glitchserv';
