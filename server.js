@@ -1,9 +1,15 @@
 var express = require('express');
+var mongoose = require('mongoose');
+var mongoStore = require('connect-mongo')(express);
+var constants = require('./app/config/constants');
+
 var app = express();
 var port = process.env.PORT || 8080;
 
 app.use(express.logger('dev')); 
 app.use(express.bodyParser()); 
+
+mongoose.connect(constants.databaseURL);
 
 require('./app/routes.js')(app);
 

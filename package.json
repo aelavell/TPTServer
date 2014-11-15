@@ -8,7 +8,8 @@
   },
   "dependencies" : {
     "express": "3.4.4",
-    "mongoose": "3.8.1"
+    "mongoose": "3.8.1",
+    "connect-mongo": "0.3.x"
   },
   "author": "Allan Lavell",
   "license": "ISC"

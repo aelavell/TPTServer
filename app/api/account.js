@@ -1,24 +1,25 @@
-//var User = require('../models/user');
+var User = require('../models/user');
 
 module.exports = function(passport) {
   var account = {};
 
   account.login = function(req, res) {
-    res.json(200, {'message' : 'Login successful.'});
-    /*validation.validateParametersExisting(req, ['username', 'password'], function(err) {
-      if (err) { return res.json(400, {'errors': [err]});}
+    var fbID = req.param('fbID');
+    
+    User.findOne({ 'fbID' : fbID }, function(err, user) {
+      if (err) { res.json(400, { 'code' : 90, 'message' : 'Database error'  }); }
+      if (user !== null) { res.json(200, { 'code' : 1, 'message' : 'Logged in successfully.', 'id' : user.id }); }
+      else {
+        var newUser = new User();
 
-      passport.authenticate('local-account-login', function(err, user, info) {
-        if (err) { return res.json(400, {'errors' : [err]}); }
-        if (!user) { return res.json(400, {'errors' : [info]}); }
-        if (user) { 
-          req.logIn(user, function(err) {
-            if (err) { return res.json(400, {'error' : [errorDefs.loginError]}); }
-            return res.json(200, {'message' : 'Login successful.'});
-          });
-        }
-      })(req, res);
-    });*/
+        newUser.fbID = fbID;
+        
+        newUser.save(function(err) {
+          if (err) { res.json(400, { 'code' : 90, 'message' : 'Database error'  }); }
+          else { res.json(200, { 'code' : 0, 'message' : 'Registered successfully.', 'id' : newUser.id }); }
+        });
+      }
+    });
   };
 
   return account;
